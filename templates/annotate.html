@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Annotation Tool</title>
+    <!-- Include Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="center-align">Annotation Tool</h1>
+        <form method="POST" action="/" class="col s12">
+            <div class="row">
+                <div class="input-field col s12">
+                    <textarea name="text" class="materialize-textarea">{{ text }}</textarea>
+                    <label for="text">Text</label>
+                </div>
+            </div>
+            <button class="btn waves-effect waves-light" type="submit" name="save">Annotate</button>
+        </form>
+
+        {% if segmented_text %}
+        <h2>Segmented Text:</h2>
+        <ul class="collection">
+            {% for token in segmented_text %}
+            <li class="collection-item">{{ token }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if annotated_text %}
+        <h2>Annotated Text:</h2>
+        <form method="POST" action="/" class="col s12">
+            <ul class="collection">
+                {% for token in annotated_text %}
+                    <li class="collection-item">
+                        <div class="row">
+                            <div class="input-field col s12 m4">
+                                <strong>{{ token.token }}</strong>
+                            </div>
+                            <div class="input-field col s12 m4">
+                                <input type="text" name="pos" value="{{ token.pos }}">
+                                <label for="pos">POS</label>
+                            </div>
+                            <div class="input-field col s12 m4">
+                                <input type="text" name="lemma" value="{{ token.lemma }}">
+                                <label for="lemma">Lemma</label>
+                            </div>
+                            {% if token.pos in ['NOUN', 'PROPN', 'PRON', 'CCONJ', 'PART', 'ADJ', 'DET'] %}
+                            <div class="input-field col s12 m4">
+                                <input type="text" name="case" value="{{ token.case }}">
+                                <label for="case">Case</label>
+                            </div>
+                            <div class="input-field col s12 m4">
+                                <input type="text" name="gender" value="{{ token.gender }}">
+                                <label for="gender">Gender</label>
+                            </div>
+                            <div class="input-field col s12 m4">
+                                <input type="text" name="number" value="{{ token.number }}">
+                                <label for="number">Number</label>
+                            </div>
+                            {% elif token.pos in ['VERB', 'AUX'] %}
+                            <div class="input-field col s12 m4">
+                                <input type="text" name="aspect" value="{{ token.aspect }}">
+                                <label for="aspect">Aspect</label>
+                            </div>
+                            <div class="input-field col s12 m4">
+                                <input type="text" name="tense" value="{{ token.tense }}">
+                                <label for="tense">Tense</label>
+                            </div>
+                            <div class="input-field col s12 m4">
+                                <input type="text" name="verbForm" value="{{ token.verbForm }}">
+                                <label for="verbForm">VerbForm</label>
+                            </div>
+                            <div class="input-field col s12 m4">
+                                <input type="text" name="voice" value="{{ token.voice }}">
+                                <label for="voice">Voice</label>
+                            </div>
+                            <div class="input-field col s12 m4">
+                                <input type="text" name="mood" value="{{ token.mood }}">
+                                <label for="mood">Mood</label>
+                            </div>
+                            <div class="input-field col s12 m4">
+                                <input type="text" name="person" value="{{ token.person }}">
+                                <label for="person">Person</label>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+            <button class="btn waves-effect waves-light" type="submit" name="save">Save Modifications as JSON</button>
+        </form>
+        {% endif %}
+    </div>
+
+    <!-- Include Materialize JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>
