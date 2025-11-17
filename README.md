@@ -99,4 +99,5 @@ Annotations are saved as JSON with the following structure:
 
 ## License
 
+Please see the [LICENSE](https://github.com/Bestroi150/AnnApi/main/LICENSE) of the application.
 
