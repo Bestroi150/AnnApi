@@ -99,8 +99,4 @@ Annotations are saved as JSON with the following structure:
 
 ## License
 
-[Add your license information here]
 
-## Author
-
-[Your name/organization]
